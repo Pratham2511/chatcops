@@ -69,6 +69,9 @@ export class Input {
   }
 
   private handleKeydown(e: KeyboardEvent): void {
+    // Safari may report isComposing as false when confirming an IME candidate.
+    if (e.isComposing || e.keyCode === 229) return;
+
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       this.send();
